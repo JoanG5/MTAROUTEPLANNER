@@ -1,15 +1,25 @@
 from underground import metadata, SubwayFeed
+import json 
 
 url = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct/gtfs-bdfm"
 API_KEY = 'Sk9HMgyQuN24slsbgXEEs2avCkx5pbxr68SxonnD'
-ROUTE = 'B'
+ROUTE = 'A'
 feed = SubwayFeed.get(ROUTE, api_key=API_KEY)
 
-for key, val in feed.extract_stop_dict().items():
-    print(key)
-    print('*' * 50)
-    for x, y in val.items():
-        print(x)
-        for val in y:
-            print(val)
-    break
+with open('stopsID.json', 'r') as f:
+  stopsID = json.load(f)
+
+with open('stopsStation.json', 'r') as f:
+  stopsStation = json.load(f)
+
+print(len(stopsID))
+print(len(stopsStation))
+
+# for key, val in feed.extract_stop_dict().items():
+#     for x, y in val.items():
+#         if x == "A57S":
+#             print(x)
+#             for val in y:
+#                 print(val)
+#         else:
+#             break

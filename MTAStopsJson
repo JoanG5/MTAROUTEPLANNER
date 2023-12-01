@@ -1,0 +1,18 @@
+import json
+
+stops = {}
+stop= []
+
+with open('stops.txt', 'r') as f:
+  for line in f:
+    line = line.split(",")
+    stop.append(line[0])
+    stop.append(line[1])
+
+for i in range(int(len(stop) / 2)):
+  stops[stop[i + 1]] = stop[i] 
+
+print(len(stops))
+
+# with open("stops.json", "w") as outfile: 
+#     json.dump(stops, outfile)
