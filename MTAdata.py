@@ -3,7 +3,7 @@ import datetime
 import json 
 
 url = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct/gtfs-bdfm"
-API_KEY = 'Sk9HMgyQuN24slsbgXEEs2avCkx5pbxr68SxonnD'
+API_KEY = ''
 ROUTE = 'A'
 feed = SubwayFeed.get(ROUTE, api_key=API_KEY)
 
