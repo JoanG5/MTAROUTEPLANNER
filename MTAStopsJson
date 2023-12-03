@@ -10,7 +10,7 @@ with open('stops.txt', 'r') as f:
     stop.append(line[1])
 
 for i in range(int(len(stop) / 2)):
-  stops[stop[i + 1]] = stop[i] 
+  stops[stop[i]] = stop[i + 1] 
 
 print(len(stops))
 
