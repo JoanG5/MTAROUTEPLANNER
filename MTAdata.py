@@ -3,7 +3,7 @@ import datetime
 import json 
 
 url = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct/gtfs-bdfm"
-API_KEY = ''
+API_KEY = 'Sk9HMgyQuN24slsbgXEEs2avCkx5pbxr68SxonnD'
 ROUTE = 'A'
 feed = SubwayFeed.get(ROUTE, api_key=API_KEY)
 
@@ -51,4 +51,5 @@ def amount_of_time(start, end):
 # Only works for one train
 # Have to implement a way to check transfers
 
+check_MTA_data()
 print(amount_of_time("125 St", "145 St"))      
