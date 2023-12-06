@@ -1,18 +1,17 @@
 import json
+import pprint
 
 stops = {}
 stop= []
 
-with open('stops.txt', 'r') as f:
+with open('lines.txt', 'r') as f:
+  count = 0
   for line in f:
-    line = line.split(",")
-    stop.append(line[0])
-    stop.append(line[1])
+    line = line.strip()
+    index = line.find(":")
+    stops[count] = [line[index + 1:].split(','), line[:index]]
+    stop.append(stops)
+    count += 1
 
-for i in range(int(len(stop) / 2)):
-  stops[stop[i]] = stop[i + 1] 
-
-print(len(stops))
-
-# with open("stops.json", "w") as outfile: 
-#     json.dump(stops, outfile)
+with open("lines.json", "w") as outfile: 
+    json.dump(stop, outfile)
