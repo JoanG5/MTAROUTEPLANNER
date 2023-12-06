@@ -1,5 +1,17 @@
-graph = {'a':{'b':10,'c':3},'b':{'c':1,'d':2},'c':{'b':4,'d':8,'e':2},'d':{'e':7},'e':{'d':9}}
- 
+# graph = {'a':{'b':10,'c':3},'b':{'c':1,'d':2},'c':{'b':4,'d':8,'e':2},'d':{'e':7},'e':{'d':9}}
+
+subwayGraph = {
+  '168S': { '157S': 2, '163S': 1, '145S': 3 },
+  '157S': { '168S': 2 },
+  '163S': { '168S': 1 },
+  '145S': { '168S': 3 },
+
+  '168N': { '175N': 2 },
+  '157N': { '168N': 2 },
+  '163N': { '168N': 1 },
+  '145N': { '168N': 3 }
+}
+
 def dijkstra(graph,start,goal):
     shortest_distance = {}
     predecessor = {}
@@ -38,4 +50,4 @@ def dijkstra(graph,start,goal):
         print('And the path is ' + str(path))
  
  
-dijkstra(graph, 'a', 'b')
+dijkstra(subwayGraph, '168', 'b')
