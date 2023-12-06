@@ -6,6 +6,7 @@ import pprint
 url = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct/gtfs-bdfm"
 API_KEY = 'Sk9HMgyQuN24slsbgXEEs2avCkx5pbxr68SxonnD'
 ROUTE = 'A'
+ROUTES = ["H","M","D","1","Z","A","N","GS","SI","J","G","Q","L","B","R","F","E","2","7","W","6","4","C","5","FS"]
 feed = SubwayFeed.get(ROUTE, api_key=API_KEY) 
 
 with open('stopsID.json', 'r') as f:
@@ -38,18 +39,22 @@ def build_graph():
 
   return graph
 
-def graph_weight(graph):
-    stopTimes = {}
-    for train, val in feed.extract_stop_dict().items():
-      for x, y in val.items(): 
-        if x in stopsID:
-          stopTimes[stopsID[x]] = y
-    
-    for key, stops in graph.items():
-      for stop, weight in stops.items():
-        if stop in stopTimes:
-          stops[stop] = stopTimes[stop][0]
-    pprint.pprint(graph)
+def graph_weight(graph, route):
+  feed = SubwayFeed.get(route, api_key=API_KEY) 
+
+  stopTimes = {}
+  for train, val in feed.extract_stop_dict().items(): 
+    for x, y in val.items(): 
+      if x in stopsID:    # Checks if x=(station ID API gives) is in the JSON
+        stopTimes[stopsID[x]] = y # Makes the stop the key, and the list of times the value
+                                  # ex. "{175th st: [time1, time2, time3 ...] }"
+  
+  for key, stops in graph.items():
+    for stop, weight in stops.items():
+      if stop in stopTimes:
+        stops[stop] = stopTimes[stop][0]
+
+  return graph
 
 def check_MTA_data():
   for key, val in feed.extract_stop_dict().items():
@@ -68,5 +73,8 @@ def check_MTA_data():
 # with open("graph.json", "w") as outfile: 
 #     json.dump(build_graph(), outfile)
 # check_MTA_data()
-graph_weight(build_graph())
+stopGraph = build_graph()
+for route in ROUTES:
+  stopGraph = graph_weight(stopGraph, route)
+  pprint.pprint(stopGraph)
 
