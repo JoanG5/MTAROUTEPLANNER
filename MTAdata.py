@@ -13,9 +13,6 @@ feed = SubwayFeed.get(ROUTE, api_key=API_KEY)
 with open('stopsID.json', 'r') as f:
   stopsID = json.load(f)
 
-with open('stations.json', 'r') as f:
-  stations = json.load(f)
-
 with open('lines.json', 'r') as f:
   lines = json.load(f)
 
@@ -94,9 +91,9 @@ def subtract_datetime(first, second):
     time_difference = start_time - nextstop_time
   return int(time_difference.total_seconds())
 
-# with open("graph.json", "w") as outfile: 
-#     json.dump(build_graph(), outfile)
 # check_MTA_data()
 stopGraph = graph_weight(build_graph())
+with open("stopsGraph.json", "w") as outfile: 
+  json.dump(stopGraph, outfile)
 # pprint.pprint(stopGraph)
 
