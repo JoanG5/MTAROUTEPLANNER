@@ -60,7 +60,8 @@ def graph_weight(graph):
         if stop in stopTimes: # Used to check if name is the same
           endTime = stopTimes[stop][0]
         else:
-          print(stop) # IF NOT FIX THESE NAMES!
+          pass
+          # print(stop) # IF NOT FIX THESE NAMES!
 
         stops[stop] = subtract_datetime(startTime, endTime)
 
@@ -92,8 +93,7 @@ def subtract_datetime(first, second):
   return int(time_difference.total_seconds())
 
 # check_MTA_data()
-stopGraph = graph_weight(build_graph())
-with open("stopsGraph.json", "w") as outfile: 
-  json.dump(stopGraph, outfile)
+# stopGraph = graph_weight(build_graph())
+# with open("stopsGraph.json", "w") as outfile: 
+#   json.dump(stopGraph, outfile)
 # pprint.pprint(stopGraph)
-
