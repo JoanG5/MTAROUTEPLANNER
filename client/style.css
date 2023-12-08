@@ -54,3 +54,6 @@ select {
 }
 
 /* Add any additional styles as needed */
+.time {
+    margin-top: 20px;
+}

@@ -12,12 +12,12 @@ async function fetchMTAData() {
 function dijkstra(graph, start, goal) {
   let shortestDistance = {};
   let predecessor = {};
-  let unseen = Object.keys(graph);
-  let infinity = 9999999;
   let path = [];
+  let unseen = Object.keys(graph);
+  let INFINITY = 9999999;
 
   unseen.forEach(node => {
-      shortestDistance[node] = infinity;
+      shortestDistance[node] = INFINITY;
   });
   shortestDistance[start] = 0;
 
@@ -55,16 +55,25 @@ function dijkstra(graph, start, goal) {
   }
   path.unshift(start);
 
-  if (shortestDistance[goal] !== infinity) {
-      console.log(`Shortest distance is ${Math.floor(shortestDistance[goal] / 60)} minutes`);
-      console.log(`And the path is ${path}`);
-  }
+  if (shortestDistance[goal] !== INFINITY) {
+    console.log(`Shortest distance is ${Math.floor(shortestDistance[goal] / 60)} minutes`);
+    console.log(`And the path is`);
+    document.querySelector('.time').innerText = `Shortest distance is ${Math.floor(shortestDistance[goal] / 60)} minutes`;
+    let pathsText = ''; // Variable to store concatenated paths
+    
+    for (let i = 0; i < path.length; i++) {
+        console.log(path[i]);
+        pathsText += path[i] + '\n'; // Concatenate paths with a newline
+    }
+    document.querySelector('.path').innerText = `And the path is`;
+    document.querySelector('.result').innerText = pathsText; // Update the HTML element with all paths
+}
+
 }
 
 export async function runDijkstra(start, end) {
   try {
     const stopsGraph = await fetchMTAData();
-    console.log(stopsGraph);
 
     dijkstra(stopsGraph, start, end);
   } catch (error) {

@@ -93,7 +93,7 @@ def subtract_datetime(first, second):
   return int(time_difference.total_seconds())
 
 # check_MTA_data()
-# stopGraph = graph_weight(build_graph())
-# with open("stopsGraph.json", "w") as outfile: 
-#   json.dump(stopGraph, outfile)
-# pprint.pprint(stopGraph)
+stopGraph = graph_weight(build_graph())
+# # with open("stopsGraph.json", "w") as outfile: 
+# #   json.dump(stopGraph, outfile)
+pprint.pprint(stopGraph)
