@@ -65,7 +65,7 @@ function dijkstra(graph, start, goal) {
         console.log(path[i]);
         pathsText += path[i] + '\n'; // Concatenate paths with a newline
     }
-    document.querySelector('.path').innerText = `And the path is`;
+    document.querySelector('.path').innerText = `The path is`;
     document.querySelector('.result').innerText = pathsText; // Update the HTML element with all paths
 }
 

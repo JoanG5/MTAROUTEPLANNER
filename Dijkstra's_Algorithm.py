@@ -3,55 +3,57 @@ import MTAdata
 stopGraph = MTAdata.graph_weight(MTAdata.build_graph())
 graph = {'a':{'b':10,'c':3},'b':{'c':1,'d':2},'c':{'b':4,'d':8,'e':2},'d':{'e':7},'e':{'d':9}}
  
-def dijkstra(graph,start,goal):
+def dijkstra(graph, start, end):
     shortest_distance = {}
-    predecessor = {}
+    pre = {}
     unseen = graph
-    infinity = 9999999
     path = []
+    inf = 9999999
+
     for node in unseen:
-        shortest_distance[node] = infinity
-    shortest_distance[start] = 0
+        shortest_distance[node] = inf # Gives all nodes a base weight of inf
+    shortest_distance[start] = 0 # Start gets 0 since there should be no distance
  
     while unseen:
-        minNode = None
+        min_node = None
         for node in unseen:
-            if minNode is None:
-                if node[:2] == "N " or node[:2] == "S ":
-                    minNode = node[2:]
+            if not min_node:
+                if node[:2] == "N " or node[:2] == "S ": # Adjusting string to be a valid key
+                    min_node = node[2:]
                 else:
-                    minNode = node
+                    min_node = node
 
-            elif shortest_distance[node] < shortest_distance[minNode]:
+            elif shortest_distance[node] < shortest_distance[min_node]: # adjust min_node, changes depending which has the least weight
                 if node[:2] == "N " or node[:2] == "S ":
-                    minNode = node[2:]
+                    min_node = node[2:]
                 else:
-                    minNode = node
+                    min_node = node
  
-        for childNode, weight in graph[minNode].items():
-            if childNode[:2] == "N " or childNode[:2] == "S ":
-                childNode = childNode[2:]
-            if weight + shortest_distance[minNode] < shortest_distance[childNode]:
-                shortest_distance[childNode] = weight + shortest_distance[minNode]
-                predecessor[childNode] = minNode
+        for child_node, weight in graph[min_node].items():
+            if child_node[:2] == "N " or child_node[:2] == "S ":
+                child_node = child_node[2:]
 
-        unseen.pop(minNode)
+            if weight + shortest_distance[min_node] < shortest_distance[child_node]: # checks the smallest weight value
+                shortest_distance[child_node] = weight + shortest_distance[min_node] # gives the smallest weight value to shortest distnace
+                pre[child_node] = min_node
+
+        unseen.pop(min_node)
  
-    currentNode = goal
+    currentNode = end
 
     while currentNode != start:
         try:
             path.insert(0,currentNode)
-            currentNode = predecessor[currentNode]
+            currentNode = pre[currentNode]
         except KeyError:
-            print('Path not reachable')
+            print('End not reachable')
             break
 
     path.insert(0, start)
 
-    if shortest_distance[goal] != infinity:
-        print(f'Shortest distance is {shortest_distance[goal] // 60} minutes')
-        print(f'And the path is {path}')
+    if shortest_distance[end] != inf:
+        print(f'Shortest distance is {shortest_distance[end] // 60} minutes')
+        print(f'The path is {path}')
  
  
 dijkstra(stopGraph, '168 St-Washington Hts', 'Whitlock Av')
