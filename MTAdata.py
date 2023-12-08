@@ -7,7 +7,7 @@ url = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct/gtfs-bdfm"
 API_KEY = 'Sk9HMgyQuN24slsbgXEEs2avCkx5pbxr68SxonnD'
 ROUTE = 'A'
 ROUTES = ["1","2","3","4","5","6","7","A","B","C","D","E","F","G","J","L","M","N","Q","R","W","Z"]
-NUM_OF_ROUTES = 2
+NUM_OF_ROUTES = 6
 feed = SubwayFeed.get(ROUTE, api_key=API_KEY) 
 
 with open('stopsID.json', 'r') as f:
@@ -37,9 +37,9 @@ def build_graph():
   for key, stops in lines.items():
     for index in range(len(stops))[:0:-1]:
       if stops[index] in graph:
-        graph[stops[index]][f"N {stops[index - 1]}"] = 1
+        graph[stops[index]][f"N {stops[index - 1]}"] = 9999999
       else:
-        graph[stops[index]] = {f"N {stops[index - 1]}" : 1}
+        graph[stops[index]] = {f"N {stops[index - 1]}" : 9999999}
     count += 1
     if count == NUM_OF_ROUTES:
       break
@@ -60,7 +60,11 @@ def graph_weight(graph):
     for stop, weight in stops.items(): # stop = N 175th
       if f"{stop[0]} {key}" in stopTimes:
         startTime = stopTimes[f"{stop[0]} {key}"][0]
-        endTime = stopTimes[stop][0]
+        if stop in stopTimes: # Used to check if name is the same
+          endTime = stopTimes[stop][0]
+        else:
+          print(stop) # IF NOT FIX THESE NAMES!
+
         stops[stop] = subtract_datetime(startTime, endTime)
 
   return graph
