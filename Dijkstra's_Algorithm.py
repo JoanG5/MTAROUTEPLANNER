@@ -1,7 +1,6 @@
 import MTAdata
 
 stopGraph = MTAdata.graph_weight(MTAdata.build_graph())
-graph = {'a':{'b':10,'c':3},'b':{'c':1,'d':2},'c':{'b':4,'d':8,'e':2},'d':{'e':7},'e':{'d':9}}
  
 def dijkstra(graph,start,goal):
     shortest_distance = {}
@@ -49,4 +48,4 @@ def dijkstra(graph,start,goal):
         print(f'And the path is {path}')
  
  
-dijkstra(stopGraph, '168 St-Washington Hts', 'South Ferry')
+dijkstra(stopGraph, 'Van Cortlandt Park-242 St', '14 St-Union Sq')
